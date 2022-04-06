@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablica odlotów</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+<form>
+    <div class="powitanie">
+        Witajcie na lotnisku!<br/><br/>
+    </div>
+    <div id="clock" class="time">
+        <h3>Zegar</h3>
+    </div>
+    <a href="/save">save</a>
+    <div th:each="samolot:${samoloty}">
+        <div th:text="${samolot.nazwa}">
+
+        </div>
+    </div>
+    <table>
+        <tr th:each="samolot:${samoloty}">
+            <td th:text="${samolot.nazwa}">
+
+            </td>
+            <td th:text="${samolot.model}">
+
+            </td>
+            <td th:text="${samolot.iloscMiejscNaPokladzie}">
+
+            </td>
+        </tr>
+    </table>
+</form>
+<form action="#" th:action="@{/rezerwuj}" th:object="${samolot}" method="post">
+    <p>Id: <input type="text" th:field="*{id}"/></p>
+    <p><input type="submit" value="Submit"/> </p>
+</form>
+<form action="#" th:action="@{/znajdz}" th:object="${samolot}" method="post">
+    <p>Id: <input type="text" th:field="*{model}"/></p>
+    <p><input type="submit" value="Submit"/> </p>
+</form>
+</body>
+</html>
