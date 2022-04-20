@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller//
-//@RequestMapping(path="/test")
 public class SamolotyController {
 
     private SamolotyRepository samolotyRepository;
@@ -23,7 +22,7 @@ public class SamolotyController {
     }
 
     @GetMapping(path = "/test2")
-    String getAll(Model model, @RequestParam(value = "model",required = false) String modelToFind) {
+    String getAll(Model model, @RequestParam(value = "model",required = false) String modelToFind, String massage) {
         List<Samolot> samoloty = new ArrayList<>();
         if (modelToFind != null) {
             samoloty = samolotyRepository.findAllByModel(modelToFind);
@@ -32,6 +31,7 @@ public class SamolotyController {
         }
         model.addAttribute("samoloty", samoloty);
         model.addAttribute("samolot", new Samolot());
+        model.addAttribute("massage",massage);
         return "index";
     }
 
@@ -47,23 +47,46 @@ public class SamolotyController {
     @RequestMapping("/zapiszSamolot")
     public String save(@ModelAttribute("samolot") Samolot samolot) {
         samolotyRepository.save(samolot);
-        return "redirect:/";
+        return "redirect:/save";
     }
 
     @RequestMapping("/rezerwuj")
     public String rezerwuj(@ModelAttribute("samolot") Samolot samolot) {
-        Optional<Samolot> znalezionySamolot = samolotyRepository.findById(samolot.getId());
-        if (znalezionySamolot.isPresent()) {
-            znalezionySamolot.get().setIloscMiejscNaPokladzie(znalezionySamolot.get().getIloscMiejscNaPokladzie() - 1);
-            samolotyRepository.save(znalezionySamolot.get());
+        String redirectToMain = "redirect:/test2";
+        if(samolot.getId()==null){
+            return redirectToMain;
         }
-        return "redirect:/test2";
+        Optional<Samolot> znalezionySamolot = samolotyRepository.findById(samolot.getId());
+
+        if (znalezionySamolot.isEmpty()) {
+            return redirectToMain;
+        }
+        Samolot znaleziony = znalezionySamolot.get();
+
+        if(znaleziony.getIloscMiejscNaPokladzie()==0){
+            return redirectToMain+"?massage=Brak wolnych miejsc.";
+        }
+        if ( znaleziony.getIloscMiejscNaPokladzie()>0) {
+            znaleziony.setIloscMiejscNaPokladzie(znaleziony.getIloscMiejscNaPokladzie() - 1);
+            samolotyRepository.save(znaleziony);
+            return redirectToMain;
+        }
+        return redirectToMain;
     }
 
     @RequestMapping("/znajdz")
-    public String znajdz(@ModelAttribute("samolot") Samolot samolot) {
+    public String znajdz(@ModelAttribute("samolot") Samolot samolot, Model model) {
+        List <Samolot>samoloty = samolotyRepository.findAllByLotnisko(samolot.getLotnisko());
+        model.addAttribute("samoloty", samoloty);
+        model.addAttribute("samolot", new Samolot());
+        return "findByLotnisko";
 
-        return "redirect:/test2"+"?model="+samolot.getModel();
+
+
+       // return "redirect:/test2"+"?lotnisko="+samolot.getLotnisko();
     }
+
+
+
 
 }

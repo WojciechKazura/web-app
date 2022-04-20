@@ -19,12 +19,17 @@ button {
   outline: none;
   background: #242423;
 }
-.powitanie{
+.naglowekSave{
   background: blue;
   text-align: center;
   color: black;
 }
-.time{
+.dodawanieLotu{
+  background: blue;
+  text-align: center;
+  color: black;
+}
+.ostrzezenie{
   background: blue;
   text-align: center;
   color: black;

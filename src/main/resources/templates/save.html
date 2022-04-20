@@ -1,17 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Dodawanie połączeń lotniczych</title>
+    <link rel="stylesheet" href="/css/style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>Form</h1>
-<form action="#" th:action="@{/zapiszSamolot}" th:object="${samolot}" method="post">
-    <p>Id: <input type="text" th:field="*{id}"/></p>
-    <p>iloscMiejscNaPokladzie: <input type="text" th:field="*{iloscMiejscNaPokladzie}"/></p>
-    <p>nazwa: <input type="text" th:field="*{nazwa}"/></p>
-    <p>model: <input type="text" th:field="*{model}"/></p>
-    <p><input type="submit" value="Submit"/> </p>
-</form>
+<div class = "naglowekSave">
+    <h1>Wprowadzanie nowego połączenia lotniczego.</h1>
+</div>
+<div class="dodawanieLotu">
+    <form action="#" th:action="@{/zapiszSamolot}" th:object="${samolot}" method="post">
+        <p>Numer lotu: <input type="text" th:field="*{id}"/></p>
+        <p>Ilość wolnych miejsc na pokładzie: <input type="text"  th:field="*{iloscMiejscNaPokladzie}"/></p>
+        <p>Nazwa samolotu: <input type="text" th:field="*{nazwa}"/></p>
+        <p>Model samolotu: <input type="text" th:field="*{model}"/></p>
+        <p>Lotnisko docelowe: <input type="text" th:field="*{lotnisko}"/></p>
+        <p><input type="submit" value="Dodaj lot."/> </p>
+    </form>
+</div>
+<div class="ostrzezenie">
+    <h3>Uwaga przed wprowadzeniem nowego połączenia sprawdź poprawnośc danych!</h3>
+</div>
 </body>
 </html>

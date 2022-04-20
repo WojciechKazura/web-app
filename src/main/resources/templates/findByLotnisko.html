@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Dodawanie połączeń lotniczych</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class = "naglowekSave">
+    <h1>Wyszukane loty:</h1>
+    <table border>
+        <tr>
+            <td>
+                Nr lotu:
+            </td>
+            <td>
+                Nazwa samolotu:
+            </td>
+            <td>
+                Model samolotu:
+            </td>
+            <td>
+                Ilość wolnych miejsc:
+            </td>
+            <td>
+                Lotnisko Docelowe:
+            </td>
+        </tr>
+        <tr th:each="samolot:${samoloty}">
+            <td  th:text="${samolot.id}">
+            </td>
+            <td th:text="${samolot.nazwa}">
+            </td>
+            <td th:text="${samolot.model}">
+            </td>
+            <td th:text="${samolot.iloscMiejscNaPokladzie}">
+            </td>
+            <td th:text="${samolot.lotnisko}">
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

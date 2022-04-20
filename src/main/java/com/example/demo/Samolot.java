@@ -10,9 +10,12 @@ public class Samolot {
 
     String nazwa;
     String model;
-    int iloscMiejscNaPokladzie;
+    String lotnisko;
+    Integer iloscMiejscNaPokladzie;
     @Id
     Long id;
+
+    public String getLotnisko() {return lotnisko;}
 
     public Long getId() {
         return id;
@@ -38,6 +41,8 @@ public class Samolot {
         this.model = model;
     }
 
+    public void setLotnisko(String lotnisko) {this.lotnisko = lotnisko;}
+
     public void setIloscMiejscNaPokladzie(int iloscMiejscNaPokladzie) {
         this.iloscMiejscNaPokladzie = iloscMiejscNaPokladzie;
     }
@@ -51,6 +56,7 @@ public class Samolot {
         return "Samolot{" +
                 "nazwa='" + nazwa + '\'' +
                 ", model='" + model + '\'' +
+                ", lotnisko='" + lotnisko + '\'' +
                 ", iloscMiejscNaPokladzie=" + iloscMiejscNaPokladzie +
                 ", id=" + id +
                 '}';
