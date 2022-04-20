@@ -11,7 +11,7 @@ public class Samolot {
     String nazwa;
     String model;
     String lotnisko;
-    Integer iloscMiejscNaPokladzie;
+    int iloscMiejscNaPokladzie;
     @Id
     Long id;
 
